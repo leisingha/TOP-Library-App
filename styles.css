@@ -25,3 +25,7 @@ main{
     grid-template-columns: 2fr 10fr 2fr;
     height: 800px;
 }
+
+.display{
+    grid-column: 2/3;
+}
