@@ -30,7 +30,7 @@ function displayBooks(){
 
     display.append(table);
     table.appendChild(caption);
-    caption.textContent = 'Books and the information';
+    caption.textContent = 'Books currently in the Library 📚';
     table.appendChild(thead);
     const headers = ['Book', 'Author', 'Pages', 'Description', 'ID', 'Read?']
     headers.forEach(element => {
