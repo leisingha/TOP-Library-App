@@ -22,7 +22,7 @@ header{
 
 main{
     display: grid;
-    grid-template-columns: 2fr 10fr 2fr;
+    grid-template-columns: 1.5fr 10fr 1.5fr;
     height: 800px;
 }
 
