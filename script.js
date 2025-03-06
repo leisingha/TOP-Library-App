@@ -6,7 +6,7 @@ function Book(title, author, pages, desc, read, remove){
     this.pages = pages;
     this.desc = desc;
     this.id = crypto.randomUUID();
-    this.read = null;
+    this.read = read;
     this.remove = null;
 }
 
@@ -29,11 +29,11 @@ function removeBookfromLibrary(id){
 }
 
 //Dummy Data for Book Library
-addBooktoLibrary('Harry Potter', 'JK Rowling', 500, 'Book about wizards and magic.', "yes" );
+addBooktoLibrary('Harry Potter', 'JK Rowling', 500, 'Book about wizards and magic.', true, null );
 
-addBooktoLibrary('Percy Jackson', 'Aston Pierce', 400, 'Book about greek gods and mythology.', "yes" );
+addBooktoLibrary('Percy Jackson', 'Aston Pierce', 400, 'Book about greek gods and mythology.', false, null );
 
-addBooktoLibrary('Goose Bumps', 'Bob Parson', 400, 'Book about paranormal activities.', "yes" );
+addBooktoLibrary('Goose Bumps', 'Bob Parson', 400, 'Book about paranormal activities.', true, null );
 
 function displayBooks(){
     const display = document.querySelector('.display');
@@ -77,6 +77,7 @@ function displayBooks(){
                     case 'read':
                         const checkBtn = document.createElement('input');
                         checkBtn.type = 'checkbox';
+                        checkBtn.checked = book.read;
                         checkBtn.addEventListener('click', () => {
                             book.toggleReadStatus(checkBtn.checked);
                             console.log(book);
