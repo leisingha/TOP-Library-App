@@ -42,7 +42,8 @@ function displayBooks(){
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
 
-    display.append(table);
+    
+    display.prepend(table);
     table.appendChild(caption);
     caption.textContent = 'Books currently in the Library 📚';
     table.appendChild(thead);
@@ -111,7 +112,7 @@ function displayForm(){
     })
 
     dialog.addEventListener('close', (e)=>{
-        dialog.close();
+        
     })
 
     btnConfirm.addEventListener('click', (e)=>{
@@ -121,10 +122,15 @@ function displayForm(){
         data = Object.fromEntries(formdata.entries());
 
 
-        addBooktoLibrary(data['book-name'], data['author-name'], data['page-num'], data['desc'], data['read-staus']);
-        resetTable();
+        addBooktoLibrary(data['book-name'], data['author-name'], data['page-num'], data['desc'], data['read-staus'], null);
+        removeTable();
         displayBooks();
+        console.log(library);
 
+        dialog.close();
+    })
+
+    btnCancel.addEventListener('click', ()=>{
         dialog.close();
     })
     

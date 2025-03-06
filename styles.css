@@ -18,6 +18,7 @@ header{
     justify-content: center;
     align-items: center;
     height: 5rem;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 main{
@@ -28,12 +29,17 @@ main{
 
 .display{
     grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 table {
     border-collapse: collapse;
     border: 2px solid rgb(200,200,200);
     letter-spacing: 1px;
+    margin-top: 2rem;
+    
     
 }
 
@@ -58,7 +64,96 @@ tr:nth-child(odd) td {
     background-color: white;
 }
 
-caption {
+caption, section {
     padding: 10px;
     font-size: large;
 }
+
+table button{
+    background-color: transparent;
+    border: none;
+    padding: 0.4rem;
+}
+
+table button img:hover{
+    filter: opacity(0.7);
+    transform: 0.5;
+}
+
+table button:hover{
+    border: 1px solid grey;
+    border-radius: 5px;
+    transform: 0.5;
+}
+
+.add-btn, form button{
+    font-family: inherit;
+    padding: 0.5rem;
+    font-weight: bold;
+}
+
+section{
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#dialog-box{
+    margin: auto;
+    background-color: #EAEDF0;
+    border-radius: 10px;
+    border: none;
+}
+
+::backdrop{
+    background-color: black;
+    opacity: 0.8;
+}
+
+#book-form{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 2fr repeat(5,1fr) 2fr;
+    /* gap: 1rem; */
+    height: 500px;
+    background-color: #F6F7F8;
+    border: 1px solid #D6D9DC;
+    border-radius: 10px;
+    margin: 2rem;
+  
+    /* width: 80%; */
+    /* padding: 50px; */
+    /* margin: 0 0 40px 0; */
+}
+
+#book-form h3{
+    grid-column: 1/3;
+    justify-self: center;
+    align-self: center;
+}
+
+#book-form label{
+    grid-column: 1/2;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+}
+
+#book-form input{
+    grid-column: 2/3;
+    margin: 1rem;
+    font-family: inherit;
+}
+
+#book-form input[type="checkbox"]{
+    margin-right: auto;
+}
+#book-form div{
+    grid-column: 2/3;
+    justify-self: left;
+    align-self: center;
+    margin-left: 1rem;
+}
+
+
