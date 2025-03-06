@@ -70,13 +70,13 @@ function displayBooks(){
                     tr.appendChild(td);
                     break;
                 case 'read':
-                    const radioBtn = document.createElement('input');
-                    radioBtn.type = 'checkbox';
+                    const checkBtn = document.createElement('input');
+                    checkBtn.type = 'checkbox';
                     // radioBtn.addEventListener('click', () => {
                     //     book.read = !(book.read);
                     //     console.log(book.read);
                     // });
-                    td.appendChild(radioBtn);
+                    td.appendChild(checkBtn);
                     tr.appendChild(td);
                     break;
                 default:
