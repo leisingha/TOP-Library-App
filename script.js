@@ -6,8 +6,12 @@ function Book(title, author, pages, desc, read, remove){
     this.pages = pages;
     this.desc = desc;
     this.id = crypto.randomUUID();
-    this.read = read;
+    this.read = null;
     this.remove = null;
+}
+
+Book.prototype.toggleReadStatus = function(bool){
+    this.read = bool;
 }
 
 
@@ -53,36 +57,38 @@ function displayBooks(){
         const tr = document.createElement('tr');
         tbody.appendChild(tr);
         for (const property in book){
-            const td = document.createElement('td');
-            switch (property){
-                case 'remove':
-                    const svg = document.createElement('img');
-                    const btn = document.createElement('button');
-                    btn.dataset.uniqueID = book.id;
-                    svg.src = 'assets/trash.svg'
-                    btn.appendChild(svg);
-                    btn.addEventListener('click', () => {
-                        removeBookfromLibrary(btn.dataset.uniqueID);
-                        resetTable();
-                        displayBooks();
-                    });
-                    td.appendChild(btn);
-                    tr.appendChild(td);
-                    break;
-                case 'read':
-                    const checkBtn = document.createElement('input');
-                    checkBtn.type = 'checkbox';
-                    // radioBtn.addEventListener('click', () => {
-                    //     book.read = !(book.read);
-                    //     console.log(book.read);
-                    // });
-                    td.appendChild(checkBtn);
-                    tr.appendChild(td);
-                    break;
-                default:
-                    td.textContent = book[property];
-                    tr.appendChild(td);
-                    break;
+            if(book.hasOwnProperty(property)){
+                const td = document.createElement('td');
+                switch (property){
+                    case 'remove':
+                        const svg = document.createElement('img');
+                        const btn = document.createElement('button');
+                        btn.dataset.uniqueID = book.id;
+                        svg.src = 'assets/trash.svg'
+                        btn.appendChild(svg);
+                        btn.addEventListener('click', () => {
+                            removeBookfromLibrary(btn.dataset.uniqueID);
+                            removeTable();
+                            displayBooks();
+                        });
+                        td.appendChild(btn);
+                        tr.appendChild(td);
+                        break;
+                    case 'read':
+                        const checkBtn = document.createElement('input');
+                        checkBtn.type = 'checkbox';
+                        checkBtn.addEventListener('click', () => {
+                            book.toggleReadStatus(checkBtn.checked);
+                            console.log(book);
+                        });
+                        td.appendChild(checkBtn);
+                        tr.appendChild(td);
+                        break;
+                    default:
+                        td.textContent = book[property];
+                        tr.appendChild(td);
+                        break;
+                }
             }           
         }
     })
@@ -123,7 +129,7 @@ function displayForm(){
     
 }
 
-function resetTable(){
+function removeTable(){
     const table = document.querySelector('table');
     table.remove();
 }
