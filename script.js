@@ -29,11 +29,11 @@ function removeBookfromLibrary(id){
 }
 
 //Dummy Data for Book Library
-addBooktoLibrary('Harry Potter', 'JK Rowling', 500, 'Book about wizards and magic.', true, null );
+addBooktoLibrary('Harry Pooper', 'JK Rowling', 500, 'Book about wizards and magic.', true, null );
 
-addBooktoLibrary('Percy Jackson', 'Aston Pierce', 400, 'Book about greek gods and mythology.', false, null );
+addBooktoLibrary('Percy Jackson', 'Fat Joe', 400, 'Book about greek gods and mythology.', false, null );
 
-addBooktoLibrary('Goose Bumps', 'Bob Parson', 400, 'Book about paranormal activities.', true, null );
+addBooktoLibrary('Goose Bumps', 'The Rock', 400, 'Book about paranormal activities.', true, null );
 
 function displayBooks(){
     const display = document.querySelector('.display');
