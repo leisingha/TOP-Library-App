@@ -13,6 +13,29 @@
     </header>
     <main>
         <div class="display">
+            <dialog id="dialog-box">
+                <form action="" id="book-form">
+                    <label for="book-name">Enter Book</label>
+                    <input type="text" id="book-name" name="book-name">
+
+                    <label for="author-name">Enter Book</label>
+                    <input type="text" id="author-name" name="author-name">
+
+                    <label for="page-num">Number of pages</label>
+                    <input type="text" id="page-num" name="page-num">
+
+                    <label for="desc">Enter Book</label>
+                    <input type="text" id="desc" name="desc" >
+
+                    <label for="read-status">Read?</label>
+                    <input type="checkbox" id="read-status" name="read-status">
+
+                    <button id="btn-cancel" type="button" value="cancel">Cancel</button>
+                    <button id="btn-confirm" type="submit" value="default">Confirm</button>
+                </form>
+            </dialog>
+
+            <button class="add-btn">Add Book</button>
 
         </div>
     </main>

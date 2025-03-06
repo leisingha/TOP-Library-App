@@ -1,25 +1,35 @@
 const library  = [];
 
-function Book(title, author, pages, desc, read){
+function Book(title, author, pages, desc, read, remove){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.desc = desc;
     this.id = crypto.randomUUID();
     this.read = read;
+    this.remove = null;
 }
 
-function addBooktoLibrary(title, author, pages, desc){
-    let bookObj = new Book(title, author, pages, desc);
+
+function addBooktoLibrary(title, author, pages, desc, read, remove){
+    let bookObj = new Book(title, author, pages, desc, read, remove);
     library.push(bookObj);
 }
 
+function removeBookfromLibrary(id){
+    library.forEach(book =>{
+        if(id == book.id){
+            library.splice(library.indexOf(book), 1);
+        }
+    })
+}
+
 //Dummy Data for Book Library
-addBooktoLibrary('Harry Potter', 'JK Rowling', 500, 'Book about wizards and magic.', true );
+addBooktoLibrary('Harry Potter', 'JK Rowling', 500, 'Book about wizards and magic.', "yes" );
 
-addBooktoLibrary('Percy Jackson', 'Aston Pierce', 400, 'Book about greek gods and mythology.', true );
+addBooktoLibrary('Percy Jackson', 'Aston Pierce', 400, 'Book about greek gods and mythology.', "yes" );
 
-addBooktoLibrary('Goose Bumps', 'Bob Parson', 400, 'Book about paranormal activities.', false );
+addBooktoLibrary('Goose Bumps', 'Bob Parson', 400, 'Book about paranormal activities.', "yes" );
 
 function displayBooks(){
     const display = document.querySelector('.display');
@@ -32,7 +42,7 @@ function displayBooks(){
     table.appendChild(caption);
     caption.textContent = 'Books currently in the Library 📚';
     table.appendChild(thead);
-    const headers = ['Book', 'Author', 'Pages', 'Description', 'ID', 'Read?']
+    const headers = ['Book', 'Author', 'Pages', 'Description', 'ID', 'Read?', 'Delete']
     headers.forEach(element => {
         const th = document.createElement('th');
         th.textContent = element;
@@ -44,14 +54,83 @@ function displayBooks(){
         tbody.appendChild(tr);
         for (const property in book){
             const td = document.createElement('td');
-            td.textContent = book[property];
-            tr.appendChild(td);
+            switch (property){
+                case 'remove':
+                    const svg = document.createElement('img');
+                    const btn = document.createElement('button');
+                    btn.dataset.uniqueID = book.id;
+                    svg.src = 'assets/trash.svg'
+                    btn.appendChild(svg);
+                    btn.addEventListener('click', () => {
+                        removeBookfromLibrary(btn.dataset.uniqueID);
+                        resetTable();
+                        displayBooks();
+                    });
+                    td.appendChild(btn);
+                    tr.appendChild(td);
+                    break;
+                case 'read':
+                    const radioBtn = document.createElement('input');
+                    radioBtn.type = 'checkbox';
+                    // radioBtn.addEventListener('click', () => {
+                    //     book.read = !(book.read);
+                    //     console.log(book.read);
+                    // });
+                    td.appendChild(radioBtn);
+                    tr.appendChild(td);
+                    break;
+                default:
+                    td.textContent = book[property];
+                    tr.appendChild(td);
+                    break;
+            }           
         }
     })
+    
+    
 }
 
+function displayForm(){
+    const display = document.querySelector('.display');
+    const dialog = document.querySelector('#dialog-box');
+    const form = document.querySelector('#book-form');
+    const addBtn = document.querySelector('.add-btn');
+    const btnConfirm = document.querySelector('#btn-confirm');
+    const btnCancel = document.querySelector('#btn-cancel');
 
 
+    addBtn.addEventListener('click', ()=>{
+        dialog.showModal();
+    })
 
+    dialog.addEventListener('close', (e)=>{
+        dialog.close();
+    })
+
+    btnConfirm.addEventListener('click', (e)=>{
+        e.preventDefault()
+
+        const formdata = new FormData(form);
+        data = Object.fromEntries(formdata.entries());
+
+
+        addBooktoLibrary(data['book-name'], data['author-name'], data['page-num'], data['desc'], data['read-staus']);
+        resetTable();
+        displayBooks();
+
+        dialog.close();
+    })
+    
+}
+
+function resetTable(){
+    const table = document.querySelector('table');
+    table.remove();
+}
+
+displayForm();
 displayBooks();
+
+
+   
 
