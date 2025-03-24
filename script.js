@@ -1,17 +1,32 @@
 const library  = [];
 
-function Book(title, author, pages, desc, read, remove){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.desc = desc;
-    this.id = crypto.randomUUID();
-    this.read = read;
-    this.remove = null;
-}
+class Book {
+    id = crypto.randomUUID();
 
-Book.prototype.toggleReadStatus = function(bool){
-    this.read = bool;
+    constructor (title, author, pages, desc, read, remove){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.desc = desc;
+        this.read = read;
+        this.remove = null;
+    }
+
+    /**
+     * @param {boolean} bool
+     */
+    set readStatus(bool){
+        this.read = bool;
+    }
+
+    get getBookId(){
+        return this.id;
+    }
+
+    get toBeRemoved(){
+        return this.remove;
+    }
+
 }
 
 
@@ -22,7 +37,7 @@ function addBooktoLibrary(title, author, pages, desc, read, remove){
 
 function removeBookfromLibrary(id){
     library.forEach(book =>{
-        if(id == book.id){
+        if(id == book.getBookId){
             library.splice(library.indexOf(book), 1);
         }
     })
@@ -64,7 +79,7 @@ function displayBooks(){
                     case 'remove':
                         const svg = document.createElement('img');
                         const btn = document.createElement('button');
-                        btn.dataset.uniqueID = book.id;
+                        btn.dataset.uniqueID = book.getBookId;
                         svg.src = 'assets/trash.svg'
                         btn.appendChild(svg);
                         btn.addEventListener('click', () => {
@@ -80,8 +95,7 @@ function displayBooks(){
                         checkBtn.type = 'checkbox';
                         checkBtn.checked = book.read;
                         checkBtn.addEventListener('click', () => {
-                            book.toggleReadStatus(checkBtn.checked);
-                            console.log(book);
+                            book.readStatus = checkBtn.checked;
                         });
                         td.appendChild(checkBtn);
                         tr.appendChild(td);
@@ -122,10 +136,9 @@ function displayForm(){
         data = Object.fromEntries(formdata.entries());
 
 
-        addBooktoLibrary(data['book-name'], data['author-name'], data['page-num'], data['desc'], data['read-staus'], null);
+        addBooktoLibrary(data['book-name'], data['author-name'], data['page-num'], data['desc'], data['read-status'], null);
         removeTable();
         displayBooks();
-        console.log(library);
 
         dialog.close();
     })
