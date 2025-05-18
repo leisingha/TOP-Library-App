@@ -121,6 +121,7 @@ function displayForm(){
     const btnCancel = document.querySelector('#btn-cancel');
 
 
+
     addBtn.addEventListener('click', ()=>{
         dialog.showModal();
     })
@@ -129,7 +130,7 @@ function displayForm(){
         
     })
 
-    btnConfirm.addEventListener('click', (e)=>{
+    form.addEventListener('submit', (e)=>{
         e.preventDefault()
 
         const formdata = new FormData(form);
@@ -141,7 +142,9 @@ function displayForm(){
         displayBooks();
 
         dialog.close();
+        
     })
+
 
     btnCancel.addEventListener('click', ()=>{
         dialog.close();
